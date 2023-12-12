@@ -4,5 +4,5 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int get_ppid(void); 
+void printArguments(char **);
 #endif
