@@ -7,4 +7,5 @@
 #include <sys/types.h>
 
 void printArguments(char **);
+char **tokenization(char *, char *);
 #endif
