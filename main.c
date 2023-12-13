@@ -20,6 +20,7 @@ int main(int ac __attribute__((unused)), char **av)
         if (getline(&buffer, &n, stdin) == EOF)
         {
             free(buffer);
+            break;
         }
     }
     return (0);
