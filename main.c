@@ -17,7 +17,10 @@ int main(int ac __attribute__((unused)), char **av)
         if (isatty(0))
             write(1, "$ ", 2);
         /*lee la lina desde stdin y lo almacena en buffer*/
-        getline(&buffer, &n, stdin);
+        if (getline(&buffer, &n, stdin) == EOF)
+        {
+            free(buffer);
+        }
     }
     return (0);
 }
