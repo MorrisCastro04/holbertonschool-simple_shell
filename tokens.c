@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "shell.h"
 /**
  * tokenization - extract tokens from the getline command
  *
@@ -8,7 +8,7 @@
  * Return: the array of tokens
  *
  */
-char **tokenization(char *ptr, char *delim)
+char **getTokens(char *ptr, char *delim)
 {
 	char *token = NULL, **tokens = NULL;
 	int i = 0;
@@ -18,8 +18,8 @@ char **tokenization(char *ptr, char *delim)
 
 	while (token)
 	{
-		tokens[i] = malloc(sizeof(char) * _strlen(token) + 1);
-		_strcpy(tokens[i], token);
+		tokens[i] = malloc(sizeof(char) * strlen(token) + 1);
+		strcpy(tokens[i], token);
 		i++;
 		token = NULL;
 		token = strtok(NULL, delim);
