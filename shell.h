@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-
+#include <sys/wait.h>
 void printArguments(char **);
 char **tokenization(char *, char *);
 #endif
