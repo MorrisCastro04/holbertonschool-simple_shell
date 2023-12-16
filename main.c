@@ -5,12 +5,12 @@
  *
  *
  */
-int main(int ac __attribute__((unused)), char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-    char *buffer = NULL, **token;
+    char *buffer, **token;
     size_t n = 0;
-    int i;
 
+    (void)ac;
     (void)av;
     while (1)
     {
@@ -21,22 +21,16 @@ int main(int ac __attribute__((unused)), char **av, char **env)
         if (getline(&buffer, &n, stdin) == EOF)
         {
             free(buffer);
-            break;
+            exit(EXIT_SUCCESS);
         }
+        /*obtiene los tokens del buffer*/
         token = getTokens(buffer, " \n");
+        free(buffer);
         if (token[0] != NULL)
-        {
-            if (strcmp(token[0], "env") == 0)
-            {
-                for (i = 0; env[i]; i++)
-                {
-                    write(1, env[i], strlen(env[i]));
-                    write(1, "\n", 1);
-                }
-                continue;
-            }
-            execution(token, env);
-        }
+            execute(token, env);
+        else
+            free(token);
     }
+    free_tokens(token);
     return (0);
 }

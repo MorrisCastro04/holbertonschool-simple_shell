@@ -11,21 +11,44 @@
 char **getTokens(char *ptr, char *delim)
 {
 	char *token = NULL, **tokens = NULL;
-	int i = 0;
-
-	tokens = malloc(sizeof(char *) * 10);
+	long unsigned int i = 0;
+	size_t capacity = MAX_TOKENS;
+	/*Asigna memoria para el array de tokens*/
+	tokens = malloc(sizeof(char *) * capacity);
+	if (!tokens)
+	{
+		perror("Error allocating memory");
+		exit(EXIT_FAILURE);
+	}
+	/*divide la cadena de texto en tokens*/
 	token = strtok(ptr, delim);
 
 	while (token)
 	{
+		/*Verifica si se necesita realocar memoria para mas token*/
+		if(i >= capacity -1)
+		{
+			capacity *= 2;
+			tokens = realloc(tokens, sizeof(char *)* capacity);
+			if (!tokens)
+			{
+				perror("error reallocating memory");
+				exit(EXIT_FAILURE);
+			}
+		}
+		/*Asigna memoria para el token actual*/
 		tokens[i] = malloc(sizeof(char) * strlen(token) + 1);
+		if (!tokens[i])
+		{
+			perror("Error allocating memory");
+			exit(EXIT_FAILURE);
+		}
+		/*copia el token a la memeria asignada*/
 		strcpy(tokens[i], token);
 		i++;
-		token = NULL;
 		token = strtok(NULL, delim);
 	}
 
 	tokens[i] = NULL;
-	free(token);
 	return (tokens);
 }
