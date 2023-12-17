@@ -25,12 +25,12 @@ int main(int ac, char **av, char **env)
         }
         /*obtiene los tokens del buffer*/
         token = getTokens(buffer, " \n");
-        free(buffer);
         if (token[0] != NULL)
             execute(token, env);
         else
             free(token);
     }
     free_tokens(token);
+    free(buffer);
     return (0);
 }

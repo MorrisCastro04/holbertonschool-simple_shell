@@ -29,7 +29,7 @@ char **getTokens(char *ptr, char *delim)
 		if(i >= capacity -1)
 		{
 			capacity *= 2;
-			tokens = realloc(tokens, sizeof(char *)* capacity);
+			tokens = realloc(tokens, sizeof(char *)* capacity + 1);
 			if (!tokens)
 			{
 				perror("error reallocating memory");
@@ -50,5 +50,6 @@ char **getTokens(char *ptr, char *delim)
 	}
 
 	tokens[i] = NULL;
+	free(token);
 	return (tokens);
 }
