@@ -1,36 +1,49 @@
 #include "shell.h"
-
 /**
- *
- *
- *
- */
-int main(int ac, char **av, char **env)
+ * 
+ * 
+ * 
+ * 
+*/
+int main(int ac, char **av)
 {
-    char *buffer, **token;
-    size_t n = 0;
+    char *buf = NULL, **tokens, *path;
+    size_t count = 0;
+    ssize_t nread;
+    pid_t child_pid;
+    int status;
 
-    (void)ac;
-    (void)av;
+    (void)ac, (void)av;
     while (1)
     {
-        /*verifica si la entrada esta asociada a un terminal*/
-        if (isatty(0))
-            write(1, "$ ", 2);
-        /*lee la lina desde stdin y lo almacena en buffer*/
-        if (getline(&buffer, &n, stdin) == EOF)
+        write(STDOUT_FILENO, "$ ", 2);
+        nread = getline(&buf, &count, stdin);
+
+        if (nread == -1)
         {
-            free(buffer);
+            perror("Exiting shell");
             exit(EXIT_SUCCESS);
         }
-        /*obtiene los tokens del buffer*/
-        token = getTokens(buffer, " \n");
-        if (token[0] != NULL)
-            execute(token, env);
+        tokens = getTokens(buf, " \n");
+        path = file_path(tokens[0]);
+        child_pid = fork();
+        if(child_pid == -1)
+        {
+            perror("Error with the child pid");
+            exit(EXIT_FAILURE);
+        }
+        else if (child_pid == 0)
+        {
+            if (execve(path, tokens, NULL) == -1)
+            {
+                perror("Couldn't execute");
+                exit(EXIT_FAILURE);
+            }
+        }
         else
-            free(token);
+            wait(&status);
     }
-    free_tokens(token);
-    free(buffer);
+    free(path);
+    free(buf);
     return (0);
 }

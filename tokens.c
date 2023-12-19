@@ -36,17 +36,9 @@ char **getTokens(char *ptr, char *delim)
 				exit(EXIT_FAILURE);
 			}
 		}
-		/*Asigna memoria para el token actual*/
-		tokens[i] = malloc(sizeof(char) * strlen(token) + 1);
-		if (!tokens[i])
-		{
-			perror("Error allocating memory");
-			exit(EXIT_FAILURE);
-		}
-		/*copia el token a la memeria asignada*/
-		strcpy(tokens[i], token);
-		i++;
+		tokens[i] = token;
 		token = strtok(NULL, delim);
+		i++;
 	}
 
 	tokens[i] = NULL;
