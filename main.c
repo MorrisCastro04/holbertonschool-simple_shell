@@ -21,7 +21,6 @@ int main(int ac, char **av)
 
         if (nread == -1)
         {
-            perror("Exiting shell");
             exit(EXIT_SUCCESS);
         }
         tokens = getTokens(buf, " \n");
@@ -29,14 +28,14 @@ int main(int ac, char **av)
         child_pid = fork();
         if(child_pid == -1)
         {
-            perror("Error with the child pid");
+            perror("Child process failed");
             exit(EXIT_FAILURE);
         }
         else if (child_pid == 0)
         {
             if (execve(path, tokens, NULL) == -1)
             {
-                perror("Couldn't execute");
+                perror("./hsh");
                 exit(EXIT_FAILURE);
             }
         }
