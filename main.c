@@ -42,8 +42,9 @@ int main(int ac, char **av)
         }
         else
             wait(&status);
+        free_tokens(tokens);
+        free(path);
     }
-    free(path);
     free(buf);
     return (0);
 }

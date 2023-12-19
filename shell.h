@@ -10,6 +10,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+void free_tokens(char **);
 char **getTokens(char *, char *);
 char *file_path(char *);
 char *file_loc(char *, char *);
