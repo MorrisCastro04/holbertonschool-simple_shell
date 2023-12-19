@@ -16,7 +16,8 @@ int main(int ac, char **av)
     (void)ac, (void)av;
     while (1)
     {
-        write(STDOUT_FILENO, "$ ", 2);
+        if (isatty(STDIN_FILENO))
+            write(STDOUT_FILENO, "$ ", 2);
         nread = getline(&buf, &count, stdin);
 
         if (nread == -1)
