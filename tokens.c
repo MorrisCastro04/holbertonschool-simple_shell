@@ -8,39 +8,19 @@
  * Return: the array of tokens
  *
  */
-char **getTokens(char *ptr, char *delim)
+void getTokens(char *ptr, char **tokens)
 {
-	char *token = NULL, **tokens = NULL;
-	long unsigned int i = 0;
-	size_t capacity = MAX_TOKENS;
-	/*Asigna memoria para el array de tokens*/
-	tokens = malloc(sizeof(char *) * capacity);
-	if (!tokens)
-	{
-		perror("Error allocating memory");
-		exit(EXIT_FAILURE);
-	}
+	char *token = NULL;
+	int i = 0;
 	/*divide la cadena de texto en tokens*/
-	token = strtok(ptr, delim);
+	token = strtok(ptr, " \n");
 
 	while (token)
 	{
-		/*Verifica si se necesita realocar memoria para mas token*/
-		if(i >= capacity -1)
-		{
-			capacity *= 2;
-			tokens = realloc(tokens, sizeof(char *)* capacity + 1);
-			if (!tokens)
-			{
-				perror("error reallocating memory");
-				exit(EXIT_FAILURE);
-			}
-		}
 		tokens[i] = token;
-		token = strtok(NULL, delim);
-		i++;
+		token = strtok(NULL, " \n");
+        i++;
 	}
 
 	tokens[i] = NULL;
-	return (tokens);
 }

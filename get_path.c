@@ -20,7 +20,7 @@ char *file_loc(char *path, char *file_name)
             free(path_buffer);
             path_buffer = NULL;
         }
-        path_buffer = malloc(strlen(token) + strlen(file_name) + 2);
+        path_buffer = malloc(strlen(token) + strlen(file_name) + 1);
         if (!path_buffer)
         {
             perror("Error malloc failed");
@@ -29,7 +29,6 @@ char *file_loc(char *path, char *file_name)
         strcpy(path_buffer, token);
         strcat(path_buffer, "/");
         strcat(path_buffer, file_name);
-        strcat(path_buffer, "\0");
 
         if (stat(path_buffer, &file_path) == 0 && access(path_buffer, X_OK) == 0)
         {
