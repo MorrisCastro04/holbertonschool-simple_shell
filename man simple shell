@@ -1,0 +1,58 @@
+.TH man simple_shell "Diciembre 19 2023"
+.SH NAME
+.B shell - command interpreter
+
+.SH SYNOPSIS
+.B ./hsh
+
+.SS Syntax
+The shell interpreter works by executing commands entered by the user. The syntax for shell commands is as follows:
+
+.B #cisfun$
+.I <command> <options or flags> <argument 1> <argument 2> ...
+
+.SH DESCRIPTION
+
+This is a simple UNIX command interpreter. Simple_shell is a sh-compatible command language interpreter that executes commands read from standard input or a file.
+
+.SS Overview
+A Unix shell is a command-line interpreter that provides a command-line user interface for Unix-like operating systems. The shell is both an interactive command language and a scripting language, used by the operating system to control system execution through shell scripts.
+
+.SS Path Searching
+When entering a command, the shell first checks if it has a built-in command of that name. If a match is found in the PATH of the environment variable (env), then the prompt's command is added to the PATH directory and the full path is returned. If no match is found, an error is displayed.
+
+.SH COMPILATION
+All files will be compiled with gcc flags
+
+gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+
+.SH RETURN VALUE
+The shell returns zero (0), unless an exit code is specified.
+
+.SH EXAMPLE
+Here are some examples of using the shell
+
+=========================================
+.SS Interactive Mode
+
+  $ ./hsh
+ ($) /bin/ls
+ hsh main.c shell.c
+ ($)
+ ($) exit
+  $
+=========================================
+
+.SS Non-Interactive Mode
+
+  $ echo "/bin/ls" | ./hsh
+  hsh main.c shell.c test_ls_2
+  $
+  $ cat test_ls_2
+  /bin/ls
+  /bin/ls
+  $
+  $ cat test_ls_2 | ./hsh
+  hsh main.c shell.c test_ls_2
+  hsh main.c shell.c test_ls_2
+  $
