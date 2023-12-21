@@ -11,9 +11,11 @@
 #include <sys/stat.h>
 
 void free_tokens(char **);
-void getTokens(char *, char **);
-char *file_path(char *);
-char *file_loc(char *, char *);
-int startWithSlash(const char *);
+int ifexit(char **);
+void print_env(char **);
+void getTokens(char *, char **, char *);
+char *path(char **);
+char *add_path(char **, char **);
+int cmd_exist(char **, char **);
 
 #endif

@@ -8,17 +8,17 @@
  * Return: the array of tokens
  *
  */
-void getTokens(char *ptr, char **tokens)
+void getTokens(char *ptr, char **tokens, char *delim)
 {
 	char *token = NULL;
 	int i = 0;
 	/*divide la cadena de texto en tokens*/
-	token = strtok(ptr, " \n");
+	token = strtok(ptr, delim);
 
 	while (token)
 	{
 		tokens[i] = token;
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, delim);
         i++;
 	}
 

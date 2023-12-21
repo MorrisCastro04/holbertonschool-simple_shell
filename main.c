@@ -5,13 +5,11 @@
  * 
  * 
 */
-int main(int ac, char **av)
+int main(int ac, char **av,char **env)
 {
-    char *buf = NULL, *tokens[10], *path;
+    char *buf = NULL, *tokens[10];
     size_t count = 0;
     ssize_t nread;
-    pid_t child_pid;
-    int status, i;
 
     (void)ac, (void)av;
     while (1)
@@ -20,31 +18,22 @@ int main(int ac, char **av)
             write(STDOUT_FILENO, "$ ", 2);
 
         nread = getline(&buf, &count, stdin);
-        if (nread == -1)
+        if (nread == EOF)
         {
+            free(buf);
             exit(EXIT_SUCCESS);
         }
-        getTokens(buf, tokens);
-        path = file_path(tokens[0]);
-        child_pid = fork();
-        if(child_pid == -1)
+        getTokens(buf, tokens, " \n");
+        if(tokens[0] != NULL)
         {
-            perror("Child process failed");
-            exit(EXIT_FAILURE);
-        }
-        else if (child_pid == 0)
-        {
-            if (execve(path, tokens, NULL) == -1)
+            if (strcmp(tokens[0], "env") == 0)
             {
-                perror("./hsh");
-                exit(EXIT_FAILURE);
+                print_env(env);
+                continue;
             }
+            if (ifexit(tokens) == 1)
+                cmd_exist(tokens, env);
         }
-        else
-            wait(&status);
-        free(path);
-        for (i = 0; tokens[i]; i++)
-            free(tokens[i]);
     }
     return (0);
 }
