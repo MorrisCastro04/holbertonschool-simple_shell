@@ -36,11 +36,11 @@ int cmd_exist(char **tokens, char **env)
 		{
 			perror("./hsh");
 
-			// exit(EXIT_FAILURE);
+			/* exit(EXIT_FAILURE);*/
 		}
 	}
 	else
 		wait(&status);
-	//free(path_tok);
+	/*free(path_tok);*/
 	return (1);
 }
