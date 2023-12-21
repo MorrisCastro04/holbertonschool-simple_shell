@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 
 void free_tokens(char **);
+int ifexit(char **);
+void print_env(char **);
 void getTokens(char *, char **, char *);
 char *path(char **);
 char *add_path(char **, char **);

@@ -26,7 +26,13 @@ int main(int ac, char **av,char **env)
         getTokens(buf, tokens, " \n");
         if(tokens[0] != NULL)
         {
-            cmd_exist(tokens, env);
+            if (strcmp(tokens[0], "env") == 0)
+            {
+                print_env(env);
+                continue;
+            }
+            if (ifexit(tokens) == 1)
+                cmd_exist(tokens, env);
         }
     }
     return (0);
