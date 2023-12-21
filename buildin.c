@@ -18,9 +18,6 @@ void print_env(char **env)
 int ifexit(char **tokens)
 {
     if (strcmp(tokens[0], "exit") == 0)
-    {
-        free(tokens);
         exit(0);
-    }
     return(1);
 }
